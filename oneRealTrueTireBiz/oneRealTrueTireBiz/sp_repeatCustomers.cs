@@ -7,18 +7,13 @@ using Microsoft.SqlServer.Server;
 public partial class StoredProcedures
 {
     [Microsoft.SqlServer.Server.SqlProcedure]
-    public static void RepeatCustomers()
+    public static void TotalCustomers()
     {
         using (SqlConnection conn = new SqlConnection("context connection=true"))
         {
-            SqlCommand CheckRepeatCustomers = new SqlCommand();
-            //SqlParameter selectYearParam = new SqlParameter("@year", SqlDbType.Int);
-            //selectYearParam.Value = DT.Year;        
-            //CheckSpecificDate.Parameters.Add(selectYearParam);
-
-            CheckRepeatCustomers.CommandText = "SELECT CONCAT(Customer.FirstName, ' ', Customer.LastName) AS Name, COUNT(1) as Antal FROM TireChange INNER JOIN Customer ON TireChange.CustomerID = Customer.CustomerID GROUP BY LastName, FirstName HAVING COUNT(1) > 2 ORDER BY Antal DESC";
-            SqlContext.Pipe.ExecuteAndSend(CheckRepeatCustomers);
+            SqlCommand CheckTotalCustomers = new SqlCommand();
+            CheckTotalCustomers.CommandText = "SELECT Count(TimeID) AS 'Antal' FROM TireChange WHERE TimeID IS NOT NULL";
+            SqlContext.Pipe.ExecuteAndSend(CheckTotalCustomers);
         }
-
     }
 }
