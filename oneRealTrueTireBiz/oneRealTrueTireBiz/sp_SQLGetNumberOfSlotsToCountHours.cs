@@ -7,7 +7,7 @@ using Microsoft.SqlServer.Server;
 public partial class StoredProcedures
 {
     [Microsoft.SqlServer.Server.SqlProcedure]
-    public static void spGetNumberOfSlotsToCountHours(DateTime firstDT, DateTime secondDT)
+    public static void sp_GetNumberOfSlotsToCountHours(DateTime firstDT, DateTime secondDT)
     {
         using (SqlConnection conn = new SqlConnection("context connection=true"))
         {

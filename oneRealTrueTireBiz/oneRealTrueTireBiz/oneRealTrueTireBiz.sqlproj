@@ -65,5 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sp_numberOfBookingForDay.cs" />
+    <Compile Include="sp_availableSlots.cs" />
+    <Compile Include="sp_countOfCustomersPerDay.cs" />
+    <Compile Include="sp_getAge.cs" />
+    <Compile Include="sp_repeatCustomers.cs" />
+    <Compile Include="sp_sortCustomerByCity.cs" />
+    <Compile Include="sp_SQLGetNumberOfSlotsToCountHours.cs" />
+    <Compile Include="sp_CLRNumberTwo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="TestScript.sql" />
   </ItemGroup>
 </Project>
