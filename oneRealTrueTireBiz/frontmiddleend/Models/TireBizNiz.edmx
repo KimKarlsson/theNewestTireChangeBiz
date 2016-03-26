@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TireFlipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TireFlipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
@@ -23,6 +23,38 @@
           <Property Name="TimeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SlotTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="TireChange">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="TimeID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="TimeID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TireChange_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="TireChange" Type="Self.TireChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="TireChange">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TireChange_TimeSlots">
+          <End Role="TimeSlots" Type="Self.TimeSlots" Multiplicity="1" />
+          <End Role="TireChange" Type="Self.TireChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlots">
+              <PropertyRef Name="TimeID" />
+            </Principal>
+            <Dependent Role="TireChange">
+              <PropertyRef Name="TimeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="AvailableSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DT" Type="datetime" Mode="In" />
         </Function>
@@ -45,9 +77,17 @@
         <EntityContainer Name="TireFlipModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeSlots" EntityType="Self.TimeSlots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TireChange" EntityType="Self.TireChange" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TireChange_Customer" Association="Self.FK_TireChange_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="TireChange" EntitySet="TireChange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TireChange_TimeSlots" Association="Self.FK_TireChange_TimeSlots">
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+            <End Role="TireChange" EntitySet="TireChange" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TireFlipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -61,26 +101,28 @@
           <Property Name="Gender" Type="Boolean" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TimeSlots" Relationship="TireFlipModel.TireChange" FromRole="Customer" ToRole="TimeSlots" />
         </EntityType>
         <EntityType Name="TimeSlots">
           <Key>
             <PropertyRef Name="TimeID" />
           </Key>
           <Property Name="TimeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SlotTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="TireFlipModel.TireChange" FromRole="TimeSlots" ToRole="Customer" />
+          <Property Name="ComplexProperty" Type="TireFlipModel.AvailableSlots" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customer" EntityType="Self.Customer" />
           <EntitySet Name="TimeSlots" EntityType="Self.TimeSlots" />
-          <FunctionImport Name="AvailableSlots">
-            <Parameter Name="DT" Mode="In" Type="DateTime" />
+          <FunctionImport Name="AvailableSlots" ReturnType="Collection(TireFlipModel.AvailableSlots)">
+          <Parameter Name="DT" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="CustomerCity" />
           <FunctionImport Name="CustomersPerDay" />
           <FunctionImport Name="Procedure_Name" ReturnType="Collection(String)" />
           <FunctionImport Name="sp_CLRNumberTwo" />
           <FunctionImport Name="sp_getAge">
-            <Parameter Name="ageOrder" Mode="In" Type="String" />
+          <Parameter Name="ageOrder" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetNumberOfSlotsToCountHours">
             <Parameter Name="firstDT" Mode="In" Type="DateTime" />
@@ -88,10 +130,21 @@
           </FunctionImport>
           <FunctionImport Name="sp_TotalInOneRow" ReturnType="Collection(Int32)" />
           <FunctionImport Name="StoredProcedureOne">
-            <Parameter Name="DT" Mode="In" Type="DateTime" />
+          <Parameter Name="DT" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="TotalCustomers" />
+          <AssociationSet Name="TireChange" Association="TireFlipModel.TireChange">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="TireChange">
+          <End Type="TireFlipModel.Customer" Role="Customer" Multiplicity="*" />
+          <End Type="TireFlipModel.TimeSlots" Role="TimeSlots" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="AvailableSlots">
+          <Property Type="DateTime" Name="SlotTime" Nullable="false" Precision="3" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -114,11 +167,19 @@
             <EntityTypeMapping TypeName="TireFlipModel.TimeSlots">
               <MappingFragment StoreEntitySet="TimeSlots">
                 <ScalarProperty Name="TimeID" ColumnName="TimeID" />
-                <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+                <ComplexProperty Name="ComplexProperty">
+                  <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+                </ComplexProperty>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AvailableSlots" FunctionName="TireFlipModel.Store.AvailableSlots" />
+          <FunctionImportMapping FunctionImportName="AvailableSlots" FunctionName="TireFlipModel.Store.AvailableSlots" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.AvailableSlots">
+                <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CustomerCity" FunctionName="TireFlipModel.Store.CustomerCity" />
           <FunctionImportMapping FunctionImportName="CustomersPerDay" FunctionName="TireFlipModel.Store.CustomersPerDay" />
           <FunctionImportMapping FunctionImportName="Procedure_Name" FunctionName="TireFlipModel.Store.Procedure_Name" />
@@ -128,6 +189,14 @@
           <FunctionImportMapping FunctionImportName="sp_TotalInOneRow" FunctionName="TireFlipModel.Store.sp_TotalInOneRow" />
           <FunctionImportMapping FunctionImportName="StoredProcedureOne" FunctionName="TireFlipModel.Store.StoredProcedureOne" />
           <FunctionImportMapping FunctionImportName="TotalCustomers" FunctionName="TireFlipModel.Store.TotalCustomers" />
+          <AssociationSetMapping Name="TireChange" TypeName="TireFlipModel.TireChange" StoreEntitySet="TireChange">
+            <EndProperty Name="TimeSlots">
+              <ScalarProperty Name="TimeID" ColumnName="TimeID" />
+            </EndProperty>
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

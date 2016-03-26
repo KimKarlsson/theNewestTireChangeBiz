@@ -7,6 +7,7 @@
       <Diagram DiagramId="bb0ed0fe986e4c24961842527a6a918b" Name="Diagram1">
         <EntityTypeShape EntityType="TireFlipModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TireFlipModel.TimeSlots" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="TireFlipModel.TireChange" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

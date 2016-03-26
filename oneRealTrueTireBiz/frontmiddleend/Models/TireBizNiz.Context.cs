@@ -30,13 +30,13 @@ namespace frontmiddleend.Models
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<TimeSlots> TimeSlots { get; set; }
     
-        public virtual int AvailableSlots(Nullable<System.DateTime> dT)
+        public virtual ObjectResult<AvailableSlots> AvailableSlots(Nullable<System.DateTime> dT)
         {
             var dTParameter = dT.HasValue ?
                 new ObjectParameter("DT", dT) :
                 new ObjectParameter("DT", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AvailableSlots", dTParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AvailableSlots>("AvailableSlots", dTParameter);
         }
     
         public virtual int CustomerCity()
