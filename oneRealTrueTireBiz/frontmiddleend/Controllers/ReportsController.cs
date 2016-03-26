@@ -30,5 +30,28 @@ namespace frontmiddleend.Controllers
             return View(result);
         }
 
+        public ActionResult CountHoursBySlots(string dayOne, string dayTwo)
+        {
+
+            DateTime dateOne;
+            DateTime dateTwo;
+            //If for some reason datetime is not entered, it will be today
+            if (!DateTime.TryParse(dayOne, out dateOne))
+            {
+                dateOne = DateTime.Today;
+            }
+            if(!DateTime.TryParse(dayTwo, out dateTwo))
+            {
+                dateTwo = DateTime.Today.AddDays(1);
+            }
+
+
+            SqlParameter sp = new SqlParameter("@firstDT", dateOne);
+            SqlParameter sp1 = new SqlParameter("@secondDT", dateTwo);
+            var result = db.Database.SqlQuery<GetNumberOfSlotsToCountHours>("sp_GetNumberOfSlotsToCountHours @firstDT, @secondDT", sp, sp1).ToList();
+            return View(result);
+        }
+
+
     }
 }

@@ -145,6 +145,9 @@
         <ComplexType Name="AvailableSlots">
           <Property Type="DateTime" Name="SlotTime" Nullable="false" Precision="3" />
         </ComplexType>
+        <ComplexType Name="GetNumberOfSlotsToCountHours" >
+          <Property Type="Int32" Name="totalt" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

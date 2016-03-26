@@ -1,0 +1,29 @@
+﻿@model  IEnumerable<frontmiddleend.Models.GetNumberOfSlotsToCountHours>
+
+<h4>Timmar mellan interval</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            <form asp-controller="Reports" asp-action="CountHoursBySlots">
+                <p>
+                    Mellan dessa två datum
+                    <input type="text" name="dayOne">
+                    <input type="text" name="dayTwo">
+                    <input type="submit" value="Filter" />
+                </p>
+            </form>
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalt)
+            </td>
+        </tr>
+    }
+
+</table>

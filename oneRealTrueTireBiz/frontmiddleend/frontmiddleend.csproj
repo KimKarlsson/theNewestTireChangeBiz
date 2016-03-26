@@ -185,6 +185,9 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetNumberOfSlotsToCountHours.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TimeSlots.cs">
@@ -292,6 +295,7 @@
     <Content Include="Views\TimeSlots\Edit.cshtml" />
     <Content Include="Views\TimeSlots\Index.cshtml" />
     <Content Include="Views\Reports\AvailableSlotsAction.cshtml" />
+    <Content Include="Views\Reports\CountHoursBySlots.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
