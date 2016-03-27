@@ -185,6 +185,15 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerCity.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomersPerDay.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAge.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetNumberOfSlotsToCountHours.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
@@ -207,6 +216,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TireBizNiz.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TotalCustomers.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -296,6 +308,10 @@
     <Content Include="Views\TimeSlots\Index.cshtml" />
     <Content Include="Views\Reports\AvailableSlotsAction.cshtml" />
     <Content Include="Views\Reports\CountHoursBySlots.cshtml" />
+    <Content Include="Views\Reports\CustomersPerDay.cshtml" />
+    <Content Include="Views\Reports\GetAge.cshtml" />
+    <Content Include="Views\Reports\TotalCustomers.cshtml" />
+    <Content Include="Views\Reports\CustomerCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

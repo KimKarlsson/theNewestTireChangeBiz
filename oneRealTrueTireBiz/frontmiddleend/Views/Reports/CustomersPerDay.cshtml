@@ -1,0 +1,26 @@
+﻿  @model IEnumerable<frontmiddleend.Models.CustomersPerDay>
+
+    <h4>Hur många kunder per dag</h4>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateField)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountField)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateField)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountField)
+                </td>
+            </tr>
+        }
+
+    </table>

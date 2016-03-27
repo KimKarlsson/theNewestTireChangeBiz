@@ -1,6 +1,7 @@
 ﻿using frontmiddleend.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,12 @@ namespace frontmiddleend.Controllers
             return View(result);
         }
 
+        /// <summary>
+        /// Input is only string so far, not datetime input
+        /// </summary>
+        /// <param name="dayOne"></param>
+        /// <param name="dayTwo"></param>
+        /// <returns></returns>
         public ActionResult CountHoursBySlots(string dayOne, string dayTwo)
         {
 
@@ -40,17 +47,49 @@ namespace frontmiddleend.Controllers
             {
                 dateOne = DateTime.Today;
             }
-            if(!DateTime.TryParse(dayTwo, out dateTwo))
-            {
-                dateTwo = DateTime.Today.AddDays(1);
-            }
-
-
             SqlParameter sp = new SqlParameter("@firstDT", dateOne);
-            SqlParameter sp1 = new SqlParameter("@secondDT", dateTwo);
+
+            SqlParameter sp1 = new SqlParameter();
+            sp1.ParameterName = "@secondDT";
+            //sp1.IsNullable = true;
+            if (DateTime.TryParse(dayTwo, out dateTwo))
+            {
+                sp1.Value = dateTwo;
+            }
+            //Stored procedure needs to be rewritten so the second parameter is not mandatory
+            else
+            {
+                sp1.Value = dateOne;
+            }
             var result = db.Database.SqlQuery<GetNumberOfSlotsToCountHours>("sp_GetNumberOfSlotsToCountHours @firstDT, @secondDT", sp, sp1).ToList();
             return View(result);
         }
+
+        public ActionResult CustomersPerDay()
+        {
+            var result = db.Database.SqlQuery<CustomersPerDay>("CustomersPerDay").ToList();
+            return View(result);
+        }
+
+        public ActionResult GetAge(string sortingChoice)
+        {
+            SqlParameter sp = new SqlParameter("@SelectOrder", sortingChoice);
+            sp.SqlValue = sortingChoice ?? System.Data.SqlTypes.SqlString.Null;
+            var result = db.Database.SqlQuery<GetAge>("sp_getAge @SelectOrder", sp).ToList();
+            return View(result);
+        }
+        public ActionResult TotalCustomers()
+        {
+            var result = db.Database.SqlQuery<TotalCustomers>("TotalCustomers").ToList();
+            return View(result);
+        }
+
+        public ActionResult CustomerCity()
+        {
+            var result = db.Database.SqlQuery<CustomerCity>("CustomerCity").ToList();
+            return View(result);
+        }
+
 
 
     }

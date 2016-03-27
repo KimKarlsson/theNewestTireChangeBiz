@@ -39,14 +39,14 @@ namespace frontmiddleend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AvailableSlots>("AvailableSlots", dTParameter);
         }
     
-        public virtual int CustomerCity()
+        public virtual ObjectResult<CustomerCity> CustomerCity()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CustomerCity");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomerCity>("CustomerCity");
         }
     
-        public virtual int CustomersPerDay()
+        public virtual ObjectResult<CustomersPerDay> CustomersPerDay()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CustomersPerDay");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomersPerDay>("CustomersPerDay");
         }
     
         public virtual ObjectResult<string> Procedure_Name()
@@ -95,9 +95,9 @@ namespace frontmiddleend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("StoredProcedureOne", dTParameter);
         }
     
-        public virtual int TotalCustomers()
+        public virtual ObjectResult<TotalCustomers> TotalCustomers()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TotalCustomers");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TotalCustomers>("TotalCustomers");
         }
     }
 }

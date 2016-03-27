@@ -117,8 +117,8 @@
           <FunctionImport Name="AvailableSlots" ReturnType="Collection(TireFlipModel.AvailableSlots)">
           <Parameter Name="DT" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="CustomerCity" />
-          <FunctionImport Name="CustomersPerDay" />
+          <FunctionImport Name="CustomerCity" ReturnType="Collection(TireFlipModel.CustomerCity)" />
+          <FunctionImport Name="CustomersPerDay" ReturnType="Collection(TireFlipModel.CustomersPerDay)" />
           <FunctionImport Name="Procedure_Name" ReturnType="Collection(String)" />
           <FunctionImport Name="sp_CLRNumberTwo" />
           <FunctionImport Name="sp_getAge">
@@ -132,7 +132,7 @@
           <FunctionImport Name="StoredProcedureOne">
           <Parameter Name="DT" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="TotalCustomers" />
+          <FunctionImport Name="TotalCustomers" ReturnType="Collection(TireFlipModel.TotalCustomers)" />
           <AssociationSet Name="TireChange" Association="TireFlipModel.TireChange">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="TimeSlots" EntitySet="TimeSlots" />
@@ -147,6 +147,21 @@
         </ComplexType>
         <ComplexType Name="GetNumberOfSlotsToCountHours" >
           <Property Type="Int32" Name="totalt" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CustomersPerDay" >
+          <Property Type="DateTime" Name="DateField" Nullable="false" />
+          <Property Type="Int32" Name="CountField" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAge" >
+          <Property Type="Int32" Name="Age" Nullable="false" />
+          <Property Type="Int32" Name="Antal" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="TotalCustomers" >
+          <Property Type="Int32" Name="Antal" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CustomerCity" >
+          <Property Type="String" Name="City" Nullable="false" />
+          <Property Type="Int32" Name="Antal" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -183,15 +198,35 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CustomerCity" FunctionName="TireFlipModel.Store.CustomerCity" />
-          <FunctionImportMapping FunctionImportName="CustomersPerDay" FunctionName="TireFlipModel.Store.CustomersPerDay" />
+          <FunctionImportMapping FunctionImportName="CustomerCity" FunctionName="TireFlipModel.Store.CustomerCity" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.CustomerCity">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Antal" ColumnName="Antal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CustomersPerDay" FunctionName="TireFlipModel.Store.CustomersPerDay" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.CustomersPerDay">
+                <ScalarProperty Name="DateField" ColumnName="DateField" />
+                <ScalarProperty Name="CountField" ColumnName="CountField" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Procedure_Name" FunctionName="TireFlipModel.Store.Procedure_Name" />
           <FunctionImportMapping FunctionImportName="sp_CLRNumberTwo" FunctionName="TireFlipModel.Store.sp_CLRNumberTwo" />
           <FunctionImportMapping FunctionImportName="sp_getAge" FunctionName="TireFlipModel.Store.sp_getAge" />
           <FunctionImportMapping FunctionImportName="sp_GetNumberOfSlotsToCountHours" FunctionName="TireFlipModel.Store.sp_GetNumberOfSlotsToCountHours" />
           <FunctionImportMapping FunctionImportName="sp_TotalInOneRow" FunctionName="TireFlipModel.Store.sp_TotalInOneRow" />
           <FunctionImportMapping FunctionImportName="StoredProcedureOne" FunctionName="TireFlipModel.Store.StoredProcedureOne" />
-          <FunctionImportMapping FunctionImportName="TotalCustomers" FunctionName="TireFlipModel.Store.TotalCustomers" />
+          <FunctionImportMapping FunctionImportName="TotalCustomers" FunctionName="TireFlipModel.Store.TotalCustomers" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.TotalCustomers">
+                <ScalarProperty Name="Antal" ColumnName="Antal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <AssociationSetMapping Name="TireChange" TypeName="TireFlipModel.TireChange" StoreEntitySet="TireChange">
             <EndProperty Name="TimeSlots">
               <ScalarProperty Name="TimeID" ColumnName="TimeID" />

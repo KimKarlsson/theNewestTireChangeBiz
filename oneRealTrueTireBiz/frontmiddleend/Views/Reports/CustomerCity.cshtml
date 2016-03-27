@@ -1,0 +1,26 @@
+﻿@model IEnumerable<frontmiddleend.Models.CustomerCity>
+
+<h4>Hur många kunder från vissa städer</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antal)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antal)
+            </td>
+        </tr>
+    }
+</table>
