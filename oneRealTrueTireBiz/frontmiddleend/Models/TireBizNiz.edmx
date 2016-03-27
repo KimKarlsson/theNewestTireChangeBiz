@@ -109,7 +109,7 @@
           </Key>
           <Property Name="TimeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Customer" Relationship="TireFlipModel.TireChange" FromRole="TimeSlots" ToRole="Customer" />
-          <Property Name="ComplexProperty" Type="TireFlipModel.AvailableSlots" Nullable="false" />
+          <Property Name="SlotTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customer" EntityType="Self.Customer" />
@@ -184,10 +184,8 @@
           <EntitySetMapping Name="TimeSlots">
             <EntityTypeMapping TypeName="TireFlipModel.TimeSlots">
               <MappingFragment StoreEntitySet="TimeSlots">
+                <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
                 <ScalarProperty Name="TimeID" ColumnName="TimeID" />
-                <ComplexProperty Name="ComplexProperty">
-                  <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
-                </ComplexProperty>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -18,12 +18,10 @@ namespace frontmiddleend.Models
         public TimeSlots()
         {
             this.Customer = new HashSet<Customer>();
-            this.ComplexProperty = new AvailableSlots();
         }
     
         public int TimeID { get; set; }
-    
-        public AvailableSlots ComplexProperty { get; set; }
+        public System.DateTime SlotTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
