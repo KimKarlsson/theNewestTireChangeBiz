@@ -194,7 +194,7 @@
     <Compile Include="Models\GetAge.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GetNumberOfSlotsToCountHours.cs">
+    <Compile Include="Models\GetNumberOfSlots.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -307,7 +307,7 @@
     <Content Include="Views\TimeSlots\Edit.cshtml" />
     <Content Include="Views\TimeSlots\Index.cshtml" />
     <Content Include="Views\Reports\AvailableSlotsAction.cshtml" />
-    <Content Include="Views\Reports\CountHoursBySlots.cshtml" />
+    <Content Include="Views\Reports\CountSlots.cshtml" />
     <Content Include="Views\Reports\CustomersPerDay.cshtml" />
     <Content Include="Views\Reports\GetAge.cshtml" />
     <Content Include="Views\Reports\TotalCustomers.cshtml" />

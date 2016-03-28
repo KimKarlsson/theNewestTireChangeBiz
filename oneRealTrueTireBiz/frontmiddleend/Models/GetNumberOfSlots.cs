@@ -11,7 +11,7 @@ namespace frontmiddleend.Models
 {
     using System;
     
-    public partial class GetNumberOfSlotsToCountHours
+    public partial class GetNumberOfSlots
     {
         public int totalt { get; set; }
     }

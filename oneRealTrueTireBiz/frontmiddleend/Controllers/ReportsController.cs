@@ -37,7 +37,7 @@ namespace frontmiddleend.Controllers
         /// <param name="dayOne"></param>
         /// <param name="dayTwo"></param>
         /// <returns></returns>
-        public ActionResult CountHoursBySlots(string dayOne, string dayTwo)
+        public ActionResult CountSlots(string dayOne, string dayTwo)
         {
 
             DateTime dateOne;
@@ -51,7 +51,7 @@ namespace frontmiddleend.Controllers
 
             SqlParameter sp1 = new SqlParameter();
             sp1.ParameterName = "@secondDT";
-            //sp1.IsNullable = true;
+            sp1.IsNullable = true;
             if (DateTime.TryParse(dayTwo, out dateTwo))
             {
                 sp1.Value = dateTwo;
@@ -59,9 +59,9 @@ namespace frontmiddleend.Controllers
             //Stored procedure needs to be rewritten so the second parameter is not mandatory
             else
             {
-                sp1.Value = dateOne;
+                sp1.Value = System.Data.SqlTypes.SqlDateTime.Null;
             }
-            var result = db.Database.SqlQuery<GetNumberOfSlotsToCountHours>("sp_GetNumberOfSlotsToCountHours @firstDT, @secondDT", sp, sp1).ToList();
+            var result = db.Database.SqlQuery<GetNumberOfSlots>("GetNumberOfSlots @firstDT, @secondDT", sp, sp1).ToList();
             return View(result);
         }
 

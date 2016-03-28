@@ -60,19 +60,14 @@
         </Function>
         <Function Name="CustomerCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CustomersPerDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="Procedure_Name" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="sp_CLRNumberTwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="sp_getAge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ageOrder" Type="nvarchar(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_GetNumberOfSlotsToCountHours" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="GetNumberOfSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstDT" Type="datetime" Mode="In" />
           <Parameter Name="secondDT" Type="datetime" Mode="In" />
         </Function>
-        <Function Name="sp_TotalInOneRow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="StoredProcedureOne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DT" Type="datetime" Mode="In" />
+        <Function Name="sp_getAge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ageOrder" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_TotalInOneRow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="TotalCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="TireFlipModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -119,24 +114,19 @@
           </FunctionImport>
           <FunctionImport Name="CustomerCity" ReturnType="Collection(TireFlipModel.CustomerCity)" />
           <FunctionImport Name="CustomersPerDay" ReturnType="Collection(TireFlipModel.CustomersPerDay)" />
-          <FunctionImport Name="Procedure_Name" ReturnType="Collection(String)" />
-          <FunctionImport Name="sp_CLRNumberTwo" />
           <FunctionImport Name="sp_getAge">
           <Parameter Name="ageOrder" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetNumberOfSlotsToCountHours">
-            <Parameter Name="firstDT" Mode="In" Type="DateTime" />
-            <Parameter Name="secondDT" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="sp_TotalInOneRow" ReturnType="Collection(Int32)" />
-          <FunctionImport Name="StoredProcedureOne">
-          <Parameter Name="DT" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="TotalCustomers" ReturnType="Collection(TireFlipModel.TotalCustomers)" />
           <AssociationSet Name="TireChange" Association="TireFlipModel.TireChange">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="TimeSlots" EntitySet="TimeSlots" />
           </AssociationSet>
+          <FunctionImport Name="GetNumberOfSlots" ReturnType="Collection(TireFlipModel.GetNumberOfSlots)">
+            <Parameter Name="firstDT" Mode="In" Type="DateTime" />
+            <Parameter Name="secondDT" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <Association Name="TireChange">
           <End Type="TireFlipModel.Customer" Role="Customer" Multiplicity="*" />
@@ -145,7 +135,7 @@
         <ComplexType Name="AvailableSlots">
           <Property Type="DateTime" Name="SlotTime" Nullable="false" Precision="3" />
         </ComplexType>
-        <ComplexType Name="GetNumberOfSlotsToCountHours" >
+        <ComplexType Name="GetNumberOfSlots" >
           <Property Type="Int32" Name="totalt" Nullable="false" />
         </ComplexType>
         <ComplexType Name="CustomersPerDay" >
@@ -212,12 +202,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Procedure_Name" FunctionName="TireFlipModel.Store.Procedure_Name" />
-          <FunctionImportMapping FunctionImportName="sp_CLRNumberTwo" FunctionName="TireFlipModel.Store.sp_CLRNumberTwo" />
           <FunctionImportMapping FunctionImportName="sp_getAge" FunctionName="TireFlipModel.Store.sp_getAge" />
-          <FunctionImportMapping FunctionImportName="sp_GetNumberOfSlotsToCountHours" FunctionName="TireFlipModel.Store.sp_GetNumberOfSlotsToCountHours" />
           <FunctionImportMapping FunctionImportName="sp_TotalInOneRow" FunctionName="TireFlipModel.Store.sp_TotalInOneRow" />
-          <FunctionImportMapping FunctionImportName="StoredProcedureOne" FunctionName="TireFlipModel.Store.StoredProcedureOne" />
           <FunctionImportMapping FunctionImportName="TotalCustomers" FunctionName="TireFlipModel.Store.TotalCustomers" >
             <ResultMapping>
               <ComplexTypeMapping TypeName="TireFlipModel.TotalCustomers">
@@ -233,6 +219,13 @@
               <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetNumberOfSlots" FunctionName="TireFlipModel.Store.GetNumberOfSlots" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.GetNumberOfSlots">
+                <ScalarProperty Name="totalt" ColumnName="totalt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
