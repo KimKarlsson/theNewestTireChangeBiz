@@ -1,11 +1,11 @@
-﻿@model  IEnumerable<frontmiddleend.Models.GetNumberOfSlotsToCountHours>
+﻿@model  IEnumerable<frontmiddleend.Models.GetNumberOfSlots>
 
-<h4>Hur många timmar bokbara timmar mellan två datum</h4>
+<h4>Hur många bokningar mellan två datum</h4>
 
 <table class="table">
     <tr>
         <th>
-            <form asp-controller="Reports" asp-action="CountHoursBySlots">
+            <form asp-controller="Reports" asp-action="CountSlots">
                 <p>
                     Mellan dessa två datum
                     <input type="datetime" name="dayOne">

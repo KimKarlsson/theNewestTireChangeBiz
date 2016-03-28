@@ -70,10 +70,6 @@
     <Compile Include="sp_getAge.cs" />
     <Compile Include="sp_repeatCustomers.cs" />
     <Compile Include="sp_sortCustomerByCity.cs" />
-    <Compile Include="sp_SQLGetNumberOfSlotsToCountHours.cs" />
-    <Compile Include="sp_CLRNumberTwo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="TestScript.sql" />
+    <Compile Include="sp_GetNumberOfSlots.cs" />
   </ItemGroup>
 </Project>

@@ -49,16 +49,6 @@ namespace frontmiddleend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomersPerDay>("CustomersPerDay");
         }
     
-        public virtual ObjectResult<string> Procedure_Name()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Procedure_Name");
-        }
-    
-        public virtual int sp_CLRNumberTwo()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CLRNumberTwo");
-        }
-    
         public virtual int sp_getAge(string ageOrder)
         {
             var ageOrderParameter = ageOrder != null ?
@@ -68,7 +58,17 @@ namespace frontmiddleend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_getAge", ageOrderParameter);
         }
     
-        public virtual int sp_GetNumberOfSlotsToCountHours(Nullable<System.DateTime> firstDT, Nullable<System.DateTime> secondDT)
+        public virtual ObjectResult<Nullable<int>> sp_TotalInOneRow()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_TotalInOneRow");
+        }
+    
+        public virtual ObjectResult<TotalCustomers> TotalCustomers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TotalCustomers>("TotalCustomers");
+        }
+    
+        public virtual ObjectResult<GetNumberOfSlots> GetNumberOfSlots(Nullable<System.DateTime> firstDT, Nullable<System.DateTime> secondDT)
         {
             var firstDTParameter = firstDT.HasValue ?
                 new ObjectParameter("firstDT", firstDT) :
@@ -78,26 +78,7 @@ namespace frontmiddleend.Models
                 new ObjectParameter("secondDT", secondDT) :
                 new ObjectParameter("secondDT", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetNumberOfSlotsToCountHours", firstDTParameter, secondDTParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> sp_TotalInOneRow()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_TotalInOneRow");
-        }
-    
-        public virtual int StoredProcedureOne(Nullable<System.DateTime> dT)
-        {
-            var dTParameter = dT.HasValue ?
-                new ObjectParameter("DT", dT) :
-                new ObjectParameter("DT", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("StoredProcedureOne", dTParameter);
-        }
-    
-        public virtual ObjectResult<TotalCustomers> TotalCustomers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TotalCustomers>("TotalCustomers");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNumberOfSlots>("GetNumberOfSlots", firstDTParameter, secondDTParameter);
         }
     }
 }
