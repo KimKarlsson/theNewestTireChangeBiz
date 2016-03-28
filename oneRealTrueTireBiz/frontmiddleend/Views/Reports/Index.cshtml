@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Rapporter</h2>
+<div class="col-md-4">
+    @{ Html.RenderAction("AvailableSlotsAction");}
+</div>
+<div class="col-md-4">
+    @{ Html.RenderAction("CountHoursBySlots");}
+</div>
+<div class="col-md-4">
+    @{ Html.RenderAction("CustomersPerDay");}
+</div>
+<div class="col-md-4">
+    @{ Html.RenderAction("GetAge");}
+</div>
+<div class="col-md-4">
+    @{ Html.RenderAction("TotalCustomers");}
+</div>
+<div class="col-md-4">
+    @{ Html.RenderAction("CustomerCity");}
+</div>
+

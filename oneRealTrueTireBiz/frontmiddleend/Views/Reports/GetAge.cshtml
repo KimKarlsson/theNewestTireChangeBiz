@@ -1,0 +1,36 @@
+﻿@model IEnumerable<frontmiddleend.Models.GetAge>
+
+<h4>Hur många kunder per dag</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            <form asp-controller="Reports" asp-action="AvailableSlotsAction">
+                <p>
+                    Datum: <input type="text" name="sortingChoice">
+                    <input type="submit" value="Filter" />
+                </p>
+            </form>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antal)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antal)
+            </td>
+        </tr>
+    }
+
+</table>

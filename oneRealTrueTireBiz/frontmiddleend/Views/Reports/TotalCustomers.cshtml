@@ -1,0 +1,20 @@
+﻿@model IEnumerable<frontmiddleend.Models.TotalCustomers>
+
+<h4>Totalt antal kunder</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Antal)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antal)
+            </td>
+        </tr>
+    }
+</table>
