@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<frontmiddleend.Models.GetAge>
 
-<h4>Hur många kunder per dag</h4>
+<h4>Visa kunder sorterat efter ålder</h4>
 
 <table class="table">
     <tr>
         <th>
             <form asp-controller="Reports" asp-action="AvailableSlotsAction">
                 <p>
-                    Datum: <input type="text" name="sortingChoice">
+                    Sortera efter: <input type="text" name="sortingChoice">
                     <input type="submit" value="Filter" />
                 </p>
             </form>
