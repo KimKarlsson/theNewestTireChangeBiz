@@ -67,6 +67,8 @@
         <Function Name="sp_getAge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ageOrder" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_getAgeGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_NumberOfBookingsPerCustomer1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_TotalInOneRow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="TotalCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="TireFlipModelStoreContainer">
@@ -114,7 +116,7 @@
           </FunctionImport>
           <FunctionImport Name="CustomerCity" ReturnType="Collection(TireFlipModel.CustomerCity)" />
           <FunctionImport Name="CustomersPerDay" ReturnType="Collection(TireFlipModel.CustomersPerDay)" />
-          <FunctionImport Name="sp_getAge">
+          <FunctionImport Name="sp_getAge" ReturnType="Collection(TireFlipModel.GetAge)">
           <Parameter Name="ageOrder" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_TotalInOneRow" ReturnType="Collection(Int32)" />
@@ -127,6 +129,8 @@
             <Parameter Name="firstDT" Mode="In" Type="DateTime" />
             <Parameter Name="secondDT" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="sp_NumberOfBookingsPerCustomer1" ReturnType="Collection(TireFlipModel.NumberOfBookingsPerCustomer)" />
+          <FunctionImport Name="sp_getAgeGroup" ReturnType="Collection(TireFlipModel.AgeGroups)" />
         </EntityContainer>
         <Association Name="TireChange">
           <End Type="TireFlipModel.Customer" Role="Customer" Multiplicity="*" />
@@ -152,6 +156,14 @@
         <ComplexType Name="CustomerCity" >
           <Property Type="String" Name="City" Nullable="false" />
           <Property Type="Int32" Name="Antal" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="NumberOfBookingsPerCustomer" >
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <Property Type="Int32" Name="TireChanges" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="AgeGroups" >
+          <Property Type="Int32" Name="Antal" Nullable="false" />
+          <Property Type="String" Name="age_range" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -202,7 +214,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_getAge" FunctionName="TireFlipModel.Store.sp_getAge" />
+          <FunctionImportMapping FunctionImportName="sp_getAge" FunctionName="TireFlipModel.Store.sp_getAge" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.GetAge">
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Antal" ColumnName="Antal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_TotalInOneRow" FunctionName="TireFlipModel.Store.sp_TotalInOneRow" />
           <FunctionImportMapping FunctionImportName="TotalCustomers" FunctionName="TireFlipModel.Store.TotalCustomers" >
             <ResultMapping>
@@ -223,6 +242,22 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="TireFlipModel.GetNumberOfSlots">
                 <ScalarProperty Name="totalt" ColumnName="totalt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_NumberOfBookingsPerCustomer1" FunctionName="TireFlipModel.Store.sp_NumberOfBookingsPerCustomer1" >
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.NumberOfBookingsPerCustomer">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TireChanges" ColumnName="TireChanges" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getAgeGroup" FunctionName="TireFlipModel.Store.sp_getAgeGroup" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TireFlipModel.AgeGroups">
+                <ScalarProperty Name="Antal" ColumnName="Amount" />
+                <ScalarProperty Name="age_range" ColumnName="Range" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

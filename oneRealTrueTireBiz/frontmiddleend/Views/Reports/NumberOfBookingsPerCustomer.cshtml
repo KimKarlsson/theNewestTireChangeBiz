@@ -1,0 +1,19 @@
+﻿@model IEnumerable<frontmiddleend.Models.NumberOfBookingsPerCustomer>
+
+<h4>Antal kunder som har bokat antal däckbyten</h4>
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TireChanges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+        </tr>
+    }
+
+</table>
