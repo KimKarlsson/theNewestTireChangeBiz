@@ -1,0 +1,26 @@
+﻿@model IEnumerable<frontmiddleend.Models.AgeGroups>
+
+<h4>Visa kunder sorterat Åldersgrupper</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.age_range)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antal)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.age_range)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antal)
+            </td>
+        </tr>
+    }
+
+</table>

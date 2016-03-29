@@ -90,6 +90,19 @@ namespace frontmiddleend.Controllers
             return View(result);
         }
 
+        public ActionResult NumberOfBookingsPerCustomer()
+        {
+
+
+            var result = db.Database.SqlQuery<NumberOfBookingsPerCustomer>("sp_NumberOfBookingsPerCustomer1").ToList();
+            return View(result);
+        }
+        public ActionResult GetAgeGroups()
+        {
+            var result = db.Database.SqlQuery<AgeGroups>("sp_getAgeGroup").ToList();
+            return View(result);
+        }
+
 
 
     }

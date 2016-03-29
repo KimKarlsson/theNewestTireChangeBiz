@@ -71,5 +71,11 @@
     <Compile Include="sp_repeatCustomers.cs" />
     <Compile Include="sp_sortCustomerByCity.cs" />
     <Compile Include="sp_GetNumberOfSlots.cs" />
+    <Compile Include="sp_customersThatComesBack.cs" />
+    <Compile Include="sp_getAgeGroup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="TestScript.sql" />
+    <Build Include="sp_NumberOfBookingsPerCustomer1.sql" />
   </ItemGroup>
 </Project>

@@ -179,6 +179,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AgeGroups.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AvailableSlots.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
@@ -199,6 +202,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NumberOfBookingsPerCustomer.cs">
+      <DependentUpon>TireBizNiz.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TimeSlots.cs">
       <DependentUpon>TireBizNiz.tt</DependentUpon>
     </Compile>
@@ -312,6 +318,8 @@
     <Content Include="Views\Reports\GetAge.cshtml" />
     <Content Include="Views\Reports\TotalCustomers.cshtml" />
     <Content Include="Views\Reports\CustomerCity.cshtml" />
+    <Content Include="Views\Reports\NumberOfBookingsPerCustomer.cshtml" />
+    <Content Include="Views\Reports\GetAgeGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

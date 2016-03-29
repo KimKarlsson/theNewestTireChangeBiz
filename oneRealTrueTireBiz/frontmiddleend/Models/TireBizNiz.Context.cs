@@ -49,13 +49,13 @@ namespace frontmiddleend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomersPerDay>("CustomersPerDay");
         }
     
-        public virtual int sp_getAge(string ageOrder)
+        public virtual ObjectResult<GetAge> sp_getAge(string ageOrder)
         {
             var ageOrderParameter = ageOrder != null ?
                 new ObjectParameter("ageOrder", ageOrder) :
                 new ObjectParameter("ageOrder", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_getAge", ageOrderParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAge>("sp_getAge", ageOrderParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_TotalInOneRow()
@@ -79,6 +79,16 @@ namespace frontmiddleend.Models
                 new ObjectParameter("secondDT", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNumberOfSlots>("GetNumberOfSlots", firstDTParameter, secondDTParameter);
+        }
+    
+        public virtual ObjectResult<NumberOfBookingsPerCustomer> sp_NumberOfBookingsPerCustomer1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NumberOfBookingsPerCustomer>("sp_NumberOfBookingsPerCustomer1");
+        }
+    
+        public virtual ObjectResult<AgeGroups> sp_getAgeGroup()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AgeGroups>("sp_getAgeGroup");
         }
     }
 }
